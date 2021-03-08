@@ -14,17 +14,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final inputContJudul = TextEditingController();
   final inputContIsi = TextEditingController();
-  String _inputJudul;
   String _inputIsi;
 
-  List<String> listViewJudul = <String>["Data1"];
   List<String> listViewIsi = <String>[];
 
   void memasukkanData() {
     setState(() {
-      _inputJudul = inputContJudul.text;
       _inputIsi = inputContIsi.text;
-      listViewJudul.add("$_inputJudul");
       listViewIsi.add("$_inputIsi");
     });
   }
@@ -46,13 +42,9 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               TextFormField(
-                controller: inputContJudul,
-                decoration:
-                    InputDecoration(labelText: 'Masukkan Suhu Dalam Celcius'),
-              ),
-              TextFormField(
                 controller: inputContIsi,
-                decoration: InputDecoration(labelText: 'Isi'),
+                decoration:
+                    InputDecoration(labelText: 'Masukkan To-Do List Isi'),
               ),
               RaisedButton(
                 child: Text('Masukkan'),
@@ -61,7 +53,7 @@ class _MyAppState extends State<MyApp> {
               ),
               Expanded(
                 child: ListView(
-                    children: listViewJudul.map((String value) {
+                    children: listViewIsi.map((String value) {
                   return Container(
                       margin: EdgeInsets.all(10),
                       child: Text(
