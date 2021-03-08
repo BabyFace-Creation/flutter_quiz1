@@ -15,13 +15,17 @@ class _MyAppState extends State<MyApp> {
   final inputContJudul = TextEditingController();
   final inputContIsi = TextEditingController();
   String _inputIsi;
+  String _inputJudul;
 
   List<String> listViewIsi = <String>[];
+  List<String> listViewJudul = <String>[];
 
   void memasukkanData() {
     setState(() {
       _inputIsi = inputContIsi.text;
+      _inputJudul = inputContJudul.text;
       listViewIsi.add("$_inputIsi");
+      listViewJudul.add("$_inputJudul");
     });
   }
 
@@ -42,6 +46,10 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               TextFormField(
+                controller: inputContJudul,
+                decoration: InputDecoration(labelText: 'Masukkan Judul'),
+              ),
+              TextFormField(
                 controller: inputContIsi,
                 decoration:
                     InputDecoration(labelText: 'Masukkan To-Do List Isi'),
@@ -52,15 +60,18 @@ class _MyAppState extends State<MyApp> {
                 onPressed: memasukkanData,
               ),
               Expanded(
-                child: ListView(
-                    children: listViewIsi.map((String value) {
-                  return Container(
-                      margin: EdgeInsets.all(10),
-                      child: Text(
-                        value,
-                        style: TextStyle(fontSize: 15),
-                      ));
-                }).toList()),
+                child: ListView.builder(
+                  itemCount: listViewIsi.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 3,
+                      child: ListTile(
+                        title: Text(listViewJudul[index]),
+                        subtitle: Text(listViewIsi[index]),
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),
