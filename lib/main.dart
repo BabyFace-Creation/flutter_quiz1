@@ -17,14 +17,15 @@ class _MyAppState extends State<MyApp> {
   String _inputJudul;
   String _inputIsi;
 
-  List<String> listViewJudul = <String>["Judul1"];
+  List<String> listViewJudul = <String>["Data1"];
   List<String> listViewIsi = <String>[];
 
   void memasukkanData() {
     setState(() {
       _inputJudul = inputContJudul.text;
+      _inputIsi = inputContIsi.text;
       listViewJudul.add("$_inputJudul");
-      listViewIsi.add(inputContIsi.text);
+      listViewIsi.add("$_inputIsi");
     });
   }
 
