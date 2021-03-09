@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   List<String> listViewDetail = <String>[];
 
   void memasukkanData() {
+    //Untuk Memasukkan Data Ke List
     setState(() {
       _inputDetail = inputContDetail.text;
       _inputJudul = inputContJudul.text;
@@ -47,17 +48,17 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               TextFormField(
-                //Penjelasan
+                //Text Form Field Untuk Mengisi Judul To-do List
                 controller: inputContJudul,
                 decoration: InputDecoration(labelText: 'Masukkan To-Do List'),
               ),
               TextFormField(
-                //Penjelasan
+                //Text Form Field Untuk Mengisi Detail To-do List
                 controller: inputContDetail,
                 decoration: InputDecoration(labelText: 'Detail To-Do List'),
               ),
               ElevatedButton(
-                //Penjelasan
+                //Button Untuk Menambahkan Data Ke List
                 child: Text('Insert'),
                 onPressed: memasukkanData,
               ),
@@ -88,6 +89,7 @@ class _MyAppState extends State<MyApp> {
                       // Show a red background as the item is swiped away.
                       background: Container(color: Colors.blue),
                       child: ListTile(
+                        //Menampilkan List
                         title: Text('$item'),
                         subtitle: Text('$itemDetail'),
                       ),
