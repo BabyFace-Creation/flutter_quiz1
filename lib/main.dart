@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 void main() {
@@ -13,19 +14,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final inputContJudul = TextEditingController();
-  final inputContIsi = TextEditingController();
-  String _inputIsi;
+  final inputContDetail = TextEditingController();
   String _inputJudul;
+  String _inputDetail;
 
-  List<String> listViewIsi = <String>[];
   List<String> listViewJudul = <String>[];
+  List<String> listViewDetail = <String>[];
 
   void memasukkanData() {
     setState(() {
-      _inputIsi = inputContIsi.text;
+      _inputDetail = inputContDetail.text;
       _inputJudul = inputContJudul.text;
-      listViewIsi.add("$_inputIsi");
       listViewJudul.add("$_inputJudul");
+      listViewDetail.add("$_inputDetail");
     });
   }
 
@@ -46,28 +47,49 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               TextFormField(
+                //Penjelasan
                 controller: inputContJudul,
-                decoration: InputDecoration(labelText: 'Masukkan Judul'),
+                decoration: InputDecoration(labelText: 'Masukkan To-Do List'),
               ),
               TextFormField(
-                controller: inputContIsi,
-                decoration:
-                    InputDecoration(labelText: 'Masukkan To-Do List Isi'),
+                //Penjelasan
+                controller: inputContDetail,
+                decoration: InputDecoration(labelText: 'Detail To-Do List'),
               ),
-              RaisedButton(
-                child: Text('Masukkan'),
-                color: Colors.blue,
+              ElevatedButton(
+                //Penjelasan
+                child: Text('Insert'),
                 onPressed: memasukkanData,
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: listViewIsi.length,
+                  itemCount: listViewJudul.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 3,
+                    final item = listViewJudul[index];
+                    final itemDetail = listViewDetail[index];
+                    return Dismissible(
+                      // Each Dismissible must contain a Key. Keys allow Flutter to
+                      // uniquely identify widgets.
+                      key: UniqueKey(),
+                      // Key(item[index]),
+                      // Provide a function that tells the app
+                      // what to do after an item has been swiped away.
+                      onDismissed: (direction) {
+                        // Remove the item from the data source.
+                        setState(() {
+                          listViewJudul.removeAt(index);
+                          listViewDetail.removeAt(index);
+                        });
+
+                        // Then show a snackbar.
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("$item Dihapus")));
+                      },
+                      // Show a red background as the item is swiped away.
+                      background: Container(color: Colors.blue),
                       child: ListTile(
-                        title: Text(listViewJudul[index]),
-                        subtitle: Text(listViewIsi[index]),
+                        title: Text('$item'),
+                        subtitle: Text('$itemDetail'),
                       ),
                     );
                   },
